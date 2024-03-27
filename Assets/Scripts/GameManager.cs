@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager gm;
     public int score = 0;
-    public GameObject interactableHolder;
+    [SerializeField] private GameObject interactableHolder;
+    public CheckpointManager checkpointManager;
 
     void Start()
     {
@@ -26,6 +27,8 @@ public class GameManager : MonoBehaviour
     void ResetGame()
     {
         Debug.Log("Resetting");
+        checkpointManager.ResetCheckpoint();
+        checkpointManager.RespawnPlayer();
         ResetInteractables();
         ResetScore();
     }

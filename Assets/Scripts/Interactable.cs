@@ -36,11 +36,7 @@ public class Interactable : MonoBehaviour
 
     }
 
-    protected virtual void HideVisuals()
-    {
-    }
+    protected virtual void HideVisuals() { }
 
-    protected virtual void ShowVisuals()
-    {
-    }
+    protected virtual void ShowVisuals() { }
 }

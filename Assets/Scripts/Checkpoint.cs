@@ -2,20 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Checkpoint : MonoBehaviour
+public class Checkpoint : Interactable
 {
-    private BoxCollider boxCollider;
-    [SerializeField] private bool disabled = false;
-
-    private void OnTriggerEnter(Collider other)
+    protected override void Interact()
     {
-        if (disabled) return;
-
-        CheckpointManager checkpointManager = other.gameObject.GetComponent<CheckpointManager>();
-        if (checkpointManager != null)
-        {
-            checkpointManager.SetCheckpoint(transform.position);
-            disabled = true;
-        }
+        GameManager.gm.checkpointManager.SetCheckpoint(transform.position);
+        base.Interact();
     }
 }
