@@ -4,23 +4,15 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
-    private Vector3 initialCheckpoint;
-    private Vector3 curCheckpoint;
+    public Vector3 initialCheckpoint;
+    public Vector3 curCheckpoint;
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Rigidbody playerRb;
 
     void Start()
     {
         initialCheckpoint = playerTransform.position;
         curCheckpoint = initialCheckpoint;
-    }
-
-    void FixedUpdate()
-    {
-        if (playerTransform.position.y < -5f)
-        {
-            RespawnPlayer();
-        }
     }
 
     public void SetCheckpoint(Vector3 newCheckpoint)
@@ -38,6 +30,6 @@ public class CheckpointManager : MonoBehaviour
     {
         Debug.Log("teleporting to checkpoint");
         playerTransform.position = curCheckpoint;
-        rb.velocity = Vector3.zero;
+        playerRb.velocity = Vector3.zero;
     }
 }

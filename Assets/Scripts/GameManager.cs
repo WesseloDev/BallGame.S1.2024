@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     [SerializeField] private GameObject interactableHolder;
     public CheckpointManager checkpointManager;
+    public Transform player;
 
     void Start()
     {
@@ -21,6 +22,21 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R))
         {
             ResetGame();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (player.position.y < -5f)
+        {
+            if (checkpointManager.curCheckpoint == checkpointManager.initialCheckpoint)
+            {
+                ResetGame();
+            }
+            else
+            {
+                checkpointManager.RespawnPlayer();
+            }
         }
     }
 
