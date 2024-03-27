@@ -183,4 +183,4 @@ MonoBehaviour:
   coinRenderer: {fileID: 7940192155528543793}
   hoverScript: {fileID: 5962030951388459359}
   rotationScript: {fileID: 4244390951721511728}
-  value: 5
+  value: 300

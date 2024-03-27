@@ -70,7 +70,7 @@ MonoBehaviour:
   coinRenderer: {fileID: 2428437875103044235}
   hoverScript: {fileID: 5820400379266690199}
   rotationScript: {fileID: 3184764850061656334}
-  value: 1
+  value: 100
 --- !u!1 &4246508661665412749
 GameObject:
   m_ObjectHideFlags: 0

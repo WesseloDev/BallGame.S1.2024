@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using UnityEditor.Build.Content;
 using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager gm;
     public int score = 0;
     [SerializeField] private GameObject interactableHolder;
+    private ScoreTextManager scoreTextManager;
     public CheckpointManager checkpointManager;
     public Transform player;
 
     void Start()
     {
         gm = this;
+        scoreTextManager = GetComponent<ScoreTextManager>();
+        scoreTextManager.UpdateScoreText(score);
     }
 
     void Update()
@@ -74,11 +78,15 @@ public class GameManager : MonoBehaviour
     public void AddScore(int amount)
     {
         score += amount;
-        Debug.Log(score);
+        scoreTextManager.UpdateScoreText(score);
+        scoreTextManager.SpawnScorePopup(amount);
+        //Debug.Log(score);
     }
 
     void ResetScore()
     {
         score = 0;
+        scoreTextManager.UpdateScoreText(score);
     }
+
 }
