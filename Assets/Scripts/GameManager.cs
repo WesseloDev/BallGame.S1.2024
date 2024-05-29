@@ -13,36 +13,38 @@ public class GameManager : MonoBehaviour
     private ScoreTextManager scoreTextManager;
     public Transform player;
 
+    [SerializeField] private float initialTime;
+    public static float timer;
+
+    public static bool gameOver = false;
+
     void Start()
     {
         gm = this;
         scoreTextManager = GetComponent<ScoreTextManager>();
         scoreTextManager.UpdateScoreText(score);
+        timer = initialTime;
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        if (gameOver) return;
+
+        timer -= Time.deltaTime;
+
+        if(Input.GetKeyDown(KeyCode.R) || player.position.y < -5f || timer <= 0f)
         {
-            ResetGame();
+            EndGame();
+            return;
         }
     }
 
-    void FixedUpdate()
+    void EndGame()
     {
-        if (player.position.y < -5f)
-        {
-            ResetGame();
-        }
-    }
-
-    void ResetGame()
-    {
-        Debug.Log("Resetting");
-        /*checkpointManager.ResetCheckpoint();
-        checkpointManager.RespawnPlayer();
-        ResetInteractables();*/
-        ResetScore();
+        Debug.Log("Ending game");
+        gameOver = true;
+        Time.timeScale = 0f;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
     public void AddScore(int amount)
@@ -51,6 +53,11 @@ public class GameManager : MonoBehaviour
         scoreTextManager.UpdateScoreText(score);
         scoreTextManager.SpawnScorePopup(amount);
         //Debug.Log(score);
+    }
+
+    public void AddTime(float amount)
+    {
+
     }
 
     void ResetScore()
