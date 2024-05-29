@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     [SerializeField] private GameObject interactableHolder;
     private ScoreTextManager scoreTextManager;
-    public CheckpointManager checkpointManager;
     public Transform player;
 
     void Start()
@@ -33,46 +32,17 @@ public class GameManager : MonoBehaviour
     {
         if (player.position.y < -5f)
         {
-            if (checkpointManager.curCheckpoint == checkpointManager.initialCheckpoint)
-            {
-                ResetGame();
-            }
-            else
-            {
-                checkpointManager.RespawnPlayer();
-            }
+            ResetGame();
         }
     }
 
     void ResetGame()
     {
         Debug.Log("Resetting");
-        checkpointManager.ResetCheckpoint();
+        /*checkpointManager.ResetCheckpoint();
         checkpointManager.RespawnPlayer();
-        ResetInteractables();
+        ResetInteractables();*/
         ResetScore();
-    }
-
-    void ResetInteractables()
-    {
-        RecursiveInteractableCheck(interactableHolder);
-    }
-
-    private void RecursiveInteractableCheck(GameObject parent)
-    {
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            GameObject child = parent.transform.GetChild(i).gameObject;
-            Interactable interactable = child.GetComponent<Interactable>();
-            if (interactable != null)
-            {
-                interactable.Enable();
-            }
-            else
-            {
-                RecursiveInteractableCheck(child);
-            }
-        }
     }
 
     public void AddScore(int amount)
