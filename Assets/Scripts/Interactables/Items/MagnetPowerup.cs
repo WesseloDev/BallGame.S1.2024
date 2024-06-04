@@ -5,11 +5,14 @@ using UnityEngine;
 public class MagnetPowerup : Interactable
 {
     [SerializeField] private float magnetTime;
-    [SerializeField] private PlayerMovement player;
 
     protected override void Interact()
     {
-        player.AddMagnetTime(magnetTime);
+        Magnet magnet = Object.FindObjectOfType<Magnet>();
+
+        if (magnet == null) return;
+
+        magnet.AddMagnetTime(magnetTime);
         base.Interact();
     }
 

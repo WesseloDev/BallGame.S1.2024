@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,9 +18,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector3 input;
 
-    [SerializeField] private GameObject magnet;
-    [SerializeField] private float magnetTimer;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -29,15 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (magnet.activeInHierarchy && magnetTimer <= 0f)
-        {
-            magnet.SetActive(false);
-        }
-        else if (magnet.activeInHierarchy)
-        {
-            magnetTimer -= Time.deltaTime;
-            Debug.Log(magnetTimer);
-        }
 
         input = GameManager.gameOver ? Vector3.zero : new Vector3(Input.GetAxis("Horizontal"), IsGrounded() && Input.GetButton("Jump") ? jumpHeight : 0f, Input.GetAxis("Vertical"));
     }
@@ -61,16 +48,6 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundedDistance, groundLayer);
-    }
-
-    public void AddMagnetTime(float timeToAdd)
-    {
-        if (!magnet.activeInHierarchy)
-        {
-            magnet.SetActive(true);
-        }
-
-        magnetTimer += timeToAdd;
     }
 
 }

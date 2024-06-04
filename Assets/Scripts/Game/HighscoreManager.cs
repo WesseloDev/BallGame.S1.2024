@@ -5,7 +5,7 @@ using UnityEngine;
 public class HighscoreManager : MonoBehaviour
 {
     public static int highscore;
-    private string highscoreKey = "testingkey";
+    private string highscoreKey = "Highscore";
 
     void Start()
     {

@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : Interactable
+public class HourglassPowerup : Interactable
 {
-    [SerializeField] private MeshRenderer coinRenderer;
-
-    public int value = 1;
+    [SerializeField] private float timeToAdd;
 
     protected override void Interact()
     {
-        GameManager.AddScore(value);
+        GameManager.AddTime(timeToAdd);
         base.Interact();
     }
+
 }

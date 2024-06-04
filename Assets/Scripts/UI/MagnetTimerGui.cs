@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerGui : MonoBehaviour
+public class MagnetTimerGui : MonoBehaviour
 {
+    [SerializeField] private Magnet magnet;
+
     private Text timerText;
-    [SerializeField] private string timerPrefix = "Time Left:\n";
 
     private void Start()
     {
@@ -17,6 +18,6 @@ public class TimerGui : MonoBehaviour
     {
         if (GameManager.gameOver) return;
 
-        timerText.text = timerPrefix + Mathf.FloorToInt(GameManager.timer).ToString();
+        timerText.text = Mathf.FloorToInt(magnet.timer).ToString();
     }
 }

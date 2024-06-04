@@ -1,16 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager gm;
-    public int score = 0;
+    public static int score = 0;
     [SerializeField] private GameObject interactableHolder;
-    private ScoreTextManager scoreTextManager;
+    private static ScoreTextManager scoreTextManager;
     private HighscoreManager highscoreManager;
     private EndScreenManager endScreenManager;
     public Transform player;
@@ -22,7 +19,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        gm = this;
         scoreTextManager = GetComponent<ScoreTextManager>();
         scoreTextManager.UpdateScoreText(score);
         highscoreManager = GetComponent<HighscoreManager>();
@@ -53,7 +49,7 @@ public class GameManager : MonoBehaviour
         endScreenManager.ShowEndScreen(newHighscore);
     }
 
-    public void AddScore(int amount)
+    public static void AddScore(int amount)
     {
         score += amount;
         scoreTextManager.UpdateScoreText(score);
@@ -61,21 +57,16 @@ public class GameManager : MonoBehaviour
         //Debug.Log(score);
     }
 
-    public void AddTime(float amount)
+    public static void AddTime(float amount)
     {
-
+        timer += amount;
     }
 
     public void StartGame()
     {
         gameOver = false;
         timer = initialTime;
-        CursorManager.LockCursor();
-    }
-
-    void ResetScore()
-    {
         score = 0;
-        scoreTextManager.UpdateScoreText(score);
+        CursorManager.LockCursor();
     }
 }
