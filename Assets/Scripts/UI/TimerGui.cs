@@ -12,9 +12,6 @@ public class TimerGui : MonoBehaviour
     {
         if (GameManager.gameOver) return;
 
-        float minutes = Mathf.FloorToInt(GameManager.timer / 60);
-        float seconds = Mathf.FloorToInt(GameManager.timer % 60);
-
-        timerText.text = timerPrefix + string.Format("{0:00}:{1:00}", minutes, seconds);
+        timerText.text = timerPrefix + Mathf.FloorToInt(GameManager.timer).ToString();
     }
 }

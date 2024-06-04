@@ -29,17 +29,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (magnet.active && magnetTimer <= 0f)
+        if (magnet.activeInHierarchy && magnetTimer <= 0f)
         {
             magnet.SetActive(false);
         }
-        else if (magnet.active)
+        else if (magnet.activeInHierarchy)
         {
             magnetTimer -= Time.deltaTime;
             Debug.Log(magnetTimer);
         }
 
-        input = new Vector3(Input.GetAxis("Horizontal"), IsGrounded() && Input.GetButton("Jump") ? jumpHeight : 0f, Input.GetAxis("Vertical"));
+        input = GameManager.gameOver ? Vector3.zero : new Vector3(Input.GetAxis("Horizontal"), IsGrounded() && Input.GetButton("Jump") ? jumpHeight : 0f, Input.GetAxis("Vertical"));
     }
 
     void FixedUpdate()
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void AddMagnetTime(float timeToAdd)
     {
-        if (!magnet.active)
+        if (!magnet.activeInHierarchy)
         {
             magnet.SetActive(true);
         }

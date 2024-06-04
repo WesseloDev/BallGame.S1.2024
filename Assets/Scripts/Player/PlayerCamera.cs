@@ -20,9 +20,6 @@ public class PlayerCamera : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         boomTransform = transform.GetChild(0);
         cameraTransform = boomTransform.GetChild(0);
 

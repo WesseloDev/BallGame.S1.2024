@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     [SerializeField] private GameObject interactableHolder;
     private ScoreTextManager scoreTextManager;
+    private HighscoreManager highscoreManager;
+    private EndScreenManager endScreenManager;
     public Transform player;
 
     [SerializeField] private float initialTime;
@@ -23,7 +25,10 @@ public class GameManager : MonoBehaviour
         gm = this;
         scoreTextManager = GetComponent<ScoreTextManager>();
         scoreTextManager.UpdateScoreText(score);
-        timer = initialTime;
+        highscoreManager = GetComponent<HighscoreManager>();
+        endScreenManager = GetComponent<EndScreenManager>();
+
+        StartGame();
     }
 
     void Update()
@@ -43,8 +48,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Ending game");
         gameOver = true;
-        Time.timeScale = 0f;
-        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        CursorManager.UnlockCursor();
+        bool newHighscore = highscoreManager.SetHighscore(score);
+        endScreenManager.ShowEndScreen(newHighscore);
     }
 
     public void AddScore(int amount)
@@ -60,10 +66,16 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void StartGame()
+    {
+        gameOver = false;
+        timer = initialTime;
+        CursorManager.LockCursor();
+    }
+
     void ResetScore()
     {
         score = 0;
         scoreTextManager.UpdateScoreText(score);
     }
-
 }
